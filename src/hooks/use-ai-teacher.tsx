@@ -126,10 +126,10 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
           })
         })
       }
-
-      message.audioPlayer.currentTime = 0;
-      message.audioPlayer.play();
     }
+
+    message.audioPlayer.currentTime = 0;
+    message.audioPlayer.play();
   },
 
   stopMessage: (message) => {
