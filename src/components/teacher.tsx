@@ -4,17 +4,15 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GroupProps } from '@react-three/fiber';
 
-export const teachers = [
-  'Nanami',
-  'Naoki',
-];
+import { TEACHERS } from '@/libs/constants';
+import { TeacherType } from '@/libs/types';
 
-teachers.forEach((teacher) => {
+TEACHERS.forEach((teacher) => {
   useGLTF.preload(`/models/Teacher_${teacher}.glb`);
 });
 
 interface TeacherProps extends GroupProps {
-  teacher: string;
+  teacher: TeacherType;
 }
 
 const Teacher = ({

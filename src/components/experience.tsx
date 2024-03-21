@@ -9,6 +9,7 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 
 import Teacher from "./teacher";
+import TypingBox from "./typing-box";
 
 const CameraManager = () => {
   return (
@@ -31,30 +32,35 @@ const CameraManager = () => {
 
 const Experience = () => {
   return (
-    <Canvas
-      camera={{
-        position: [0, 0, 0.0001],
-      }}
-    >
-      <CameraManager />
-      <Environment
-        preset="sunset"
-      />
-      <ambientLight
-        intensity={0.8}
-        color="pink"
-      />
-      <Teacher
-        teacher="Nanami"
-        position={[-1, -1.7, -3]}
-        scale={1.5}
-        rotation-y={degToRad(20)}
-      />
-      <Gltf
-        src="/models/classroom_default.glb"
-        position={[0.2, -1.7, -2]}
-      />
-    </Canvas>
+    <>
+      <div className="z-10 md:justify-center fixed bottom-4 left-4 right-4 flex gap-3 flex-wrap justify-stretch">
+        <TypingBox />
+      </div>
+      <Canvas
+        camera={{
+          position: [0, 0, 0.0001],
+        }}
+      >
+        <CameraManager />
+        <Environment
+          preset="sunset"
+        />
+        <ambientLight
+          intensity={0.8}
+          color="pink"
+        />
+        <Teacher
+          teacher="Nanami"
+          position={[-1, -1.7, -3]}
+          scale={1.5}
+          rotation-y={degToRad(20)}
+        />
+        <Gltf
+          src="/models/classroom_default.glb"
+          position={[0.2, -1.7, -2]}
+        />
+      </Canvas>
+    </>
   )
 }
 
