@@ -12,6 +12,7 @@ import { degToRad } from "three/src/math/MathUtils.js";
 import Teacher from "./teacher";
 import TypingBox from "./typing-box";
 import MessagesList from "./messages-list";
+import BoardSettings from "./board-settings";
 
 const CameraManager = () => {
   return (
@@ -51,6 +52,7 @@ const Experience = () => {
           distanceFactor={0.5}
         >
           <MessagesList />
+          <BoardSettings />
         </Html>
         <ambientLight
           intensity={0.8}
@@ -67,7 +69,7 @@ const Experience = () => {
           position={[0.2, -1.7, -2]}
         />
       </Canvas>
-      <div className="z-20 md:justify-center fixed bottom-4 left-4 right-4 flex gap-3 flex-wrap justify-stretch">
+      <div className="z-20 justify-center fixed bottom-4 left-4 right-4 flex gap-3 flex-wrap">
         <TypingBox />
       </div>
     </>
