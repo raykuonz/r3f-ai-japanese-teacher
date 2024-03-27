@@ -8,7 +8,7 @@ interface Message {
   speech: SpeechType;
   id: number;
   answer: any; // TODO: chatgpt response type
-  audioPlayer?: HTMLAudioElement;
+  audioPlayer?: HTMLAudioElement | null;
   visemes?: VisemesType;
 }
 
@@ -43,7 +43,13 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
   currentMessage: null,
 
   teacher: TEACHERS[0],
-  setTeacher: (teacher) => set({ teacher }),
+  setTeacher: (teacher) => set({
+    teacher,
+    messages: get().messages.map((message) => {
+      message.audioPlayer = null;
+      return message;
+    })
+  }),
 
   classroom: CLASSROOMS[0],
   setClassroom: (classroom) => set({ classroom }),

@@ -33,23 +33,19 @@ const BoardSettings = () => {
         {TEACHERS.map((teacher) => (
           <div
             key={teacher}
+            onClick={() => setTeacher(teacher)}
             className={cn(
-              "p-3 transition-colors duration-500 bg-white/40",
+              "p-3 transition-colors duration-500 bg-white/40 cursor-pointer",
               (teacher === teacherState) && "bg-white/80"
             )}
           >
-            <div
-              onClick={() => setTeacher(teacher)}
-              className="cursor-pointer"
-            >
-              <Image
-                src={`/images/${teacher}.jpg`}
-                width={40}
-                height={40}
-                alt={teacher}
-                className="object-cover"
-              />
-            </div>
+            <Image
+              src={`/images/${teacher}.jpg`}
+              width={40}
+              height={40}
+              alt={teacher}
+              className="object-cover"
+            />
             <h2
               className="text-3xl font-bold mt-3 text-center"
             >
