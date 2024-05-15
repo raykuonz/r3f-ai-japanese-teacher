@@ -88,10 +88,13 @@ export const useAiTeacher = create<AiTeacherState>((set, get) => ({
 
     set((state) => ({
       messages: [...state.messages, message],
-      loading: false,
     }));
 
-    get().playMessage(message);
+    await get().playMessage(message);
+
+    set({
+      loading: false,
+    });
   },
 
   playMessage: async (message) => {

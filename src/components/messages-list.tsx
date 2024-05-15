@@ -150,8 +150,6 @@ const MessagesList = () => {
             <span className="pr-4 italic bg-clip-text text-transparent bg-gradient-to-b from-white/90 to-white/70 text-3xl font-bold uppercase inline-block">
               Grammar Breakdown
             </span>
-            {console.log('##### message', message)}
-            {console.log('##### message', message)}
             {message.answer?.grammarBreakdown?.map((grammar, index) => (
               <div
                 key={index}
