@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 
+export const maxDuration = 20; // This function can run for a maximum of 20 seconds
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!
 });

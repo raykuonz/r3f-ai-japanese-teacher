@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
-import { PassThrough } from "stream";
 import * as sdk from "microsoft-cognitiveservices-speech-sdk";
+
+export const maxDuration = 20; // This function can run for a maximum of 20 seconds
 
 export const GET = async(req: NextRequest) => {
 
