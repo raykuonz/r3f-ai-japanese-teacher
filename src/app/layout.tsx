@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP, Roboto } from "next/font/google";
 import "./globals.css";
 
-export const roboto = Roboto({
+const roboto = Roboto({
   display: 'swap',
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-roboto',
 });
 
-export const notoSansJP = Noto_Sans_JP({
+const notoSansJP = Noto_Sans_JP({
   display: 'swap',
   subsets: ['latin'],
   variable: '--font-noto-sans-jp',

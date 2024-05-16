@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, Euler, Vector3 } from "@react-three/fiber";
 import {
   CameraControls,
   Environment,
@@ -35,35 +35,35 @@ const CAMERA_ZOOMS = {
 const ITEMS_PLACEMENT = {
   default: {
     classroom: {
-      position: [0.2, -1.7, -2],
+      position: [0.2, -1.7, -2] as Vector3,
     },
     teacher: {
-      position: [-1, -1.7, -3],
+      position: [-1, -1.7, -3] as Vector3,
     },
     board: {
-      position: [0.45, 0.382, -6],
+      position: [0.45, 0.382, -6] as Vector3,
     },
   },
   alternative: {
     classroom: {
-      position: [0.3, -1.7, -1.5],
-      rotation: [0, degToRad(-90), 0],
+      position: [0.3, -1.7, -1.5] as Vector3,
+      rotation: [0, degToRad(-90), 0] as Euler,
       scale: 0.4,
     },
-    teacher: { position: [-1, -1.7, -3] },
-    board: { position: [1.4, 0.84, -8] },
+    teacher: { position: [-1, -1.7, -3] as Vector3 },
+    board: { position: [1.4, 0.84, -8] as Vector3 },
   },
 };
 
 const CameraManager = () => {
 
-  const controls = useRef(null);
+  const controls = useRef<null | CameraControls>(null);
 
   useControls('Helper', {
     getCameraPosition: button(() => {
-      const position = controls?.current?.getPosition();
-      const zoom = controls.current.camera.zoom;
-      console.log([...position], zoom);
+      const position = controls?.current?.getPosition(controls?.current?.camera.position);
+      const zoom = controls?.current?.camera.zoom;
+      // console.log([...position], zoom);
     }),
 
   });
@@ -75,10 +75,20 @@ const CameraManager = () => {
 
   useEffect(() => {
     if (loading) {
-      controls.current?.setPosition(...CAMERA_POSITIONS.loading, true);
+      controls.current?.setPosition(
+        CAMERA_POSITIONS.loading[0],
+        CAMERA_POSITIONS.loading[1],
+        CAMERA_POSITIONS.loading[2],
+        true
+      );
       controls.current?.zoomTo(CAMERA_ZOOMS.loading, true);
     } else if (currentMessage) {
-      controls.current?.setPosition(...CAMERA_POSITIONS.speaking, true);
+      controls.current?.setPosition(
+        CAMERA_POSITIONS.speaking[0],
+        CAMERA_POSITIONS.speaking[1],
+        CAMERA_POSITIONS.speaking[2],
+        true
+      );
       controls.current?.zoomTo(CAMERA_ZOOMS.speaking, true);
     }
   }, [loading, currentMessage])
@@ -92,11 +102,14 @@ const CameraManager = () => {
       azimuthRotateSpeed={-0.3} // Reverse for natural effect
       mouseButtons={{
         left: 1, // Rotate
-        wheel: 16, // Zooom
+        wheel: 16, // Zoom,
+        middle: 0,
+        right: 0,
       }}
       touches={{
         one: 32, // Touch rotate
         two: 512, // Touch zoom
+        three: 0,
       }}
     />
   );

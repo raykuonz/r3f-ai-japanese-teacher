@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react'
-import { MathUtils } from 'three';
+import { MathUtils, SkinnedMesh } from 'three';
 import { randInt } from 'three/src/math/MathUtils.js';
 import { Html, useAnimations, useGLTF } from '@react-three/drei'
 import { GroupProps, useFrame } from '@react-three/fiber';
@@ -79,11 +79,12 @@ const Teacher = ({
 
   const lerpMorphTarget = (target: number | string, value: number, speed: number = 0.1) => {
     scene.traverse((child) => {
-      if (child.isSkinnedMesh && child.morphTargetDictionary) {
+      if (child instanceof SkinnedMesh && child.isSkinnedMesh && child.morphTargetDictionary) {
         const index = child.morphTargetDictionary[target];
 
         if (
           index === undefined
+          || !child.morphTargetInfluences
           || child.morphTargetInfluences[index] === undefined
         ) {
           return;
@@ -123,8 +124,11 @@ const Teacher = ({
     }
 
     if (
-      actions[animation].time >
-      actions[animation].getClip().duration - ANIMATION_FADE_TIME
+      actions[animation] &&
+      (
+        actions[animation]!.time >
+        actions[animation]!.getClip().duration - ANIMATION_FADE_TIME
+      )
     ) {
       setAnimation((animation) =>
         animation === 'Talking' ? 'Talking2' : 'Talking'

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 import { useAiTeacher } from "@/hooks/use-ai-teacher";
 import { cn } from "@/libs/utils";
+import { ChatGPTAnswerJapaneseInterface } from "@/libs/types";
 
 const MessagesList = () => {
 
@@ -17,7 +18,7 @@ const MessagesList = () => {
     classroom,
   } = useAiTeacher();
 
-  const container = useRef(null);
+  const container = useRef<HTMLDivElement|null>(null);
 
   useEffect(() => {
     container?.current?.scrollTo({
@@ -26,7 +27,7 @@ const MessagesList = () => {
     })
   }, [messages.length]);
 
-  const renderEnglish = (englishText) => (
+  const renderEnglish = (englishText: string) => (
     <>
       {english && (
         <p className="text-4xl inline-block px-2 rounded-sm font-bold bg-clip-text text-transparent bg-gradient-to-br from-blue-300/90 to-white/90">
@@ -36,7 +37,7 @@ const MessagesList = () => {
     </>
   );
 
-  const renderJapanese = (japanese) => (
+  const renderJapanese = (japanese: ChatGPTAnswerJapaneseInterface[]) => (
     <p className="text-white font-bold text-4xl mt-2 font-jp flex flex-wrap gap-1">
       {japanese.map((word, i) => (
         <span key={i} className="flex flex-col justify-end items-center">
@@ -150,7 +151,7 @@ const MessagesList = () => {
             <span className="pr-4 italic bg-clip-text text-transparent bg-gradient-to-b from-white/90 to-white/70 text-3xl font-bold uppercase inline-block">
               Grammar Breakdown
             </span>
-            {message.answer?.grammarBreakdown?.map((grammar, index) => (
+            {message.answer.grammarBreakdown?.map((grammar, index) => (
               <div
                 key={index}
                 className="mt-3"

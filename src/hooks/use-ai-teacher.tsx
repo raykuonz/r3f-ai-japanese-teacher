@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
 import { CLASSROOMS, SPEECHS, TEACHERS } from "@/libs/constants";
-import { ClassroomType, SpeechType, TeacherType, VisemesType } from "@/libs/types";
+import { ChatGPTAnswerInterface, ClassroomType, SpeechType, TeacherType, VisemesType } from "@/libs/types";
 
 interface Message {
   question: string;
   speech: SpeechType;
   id: number;
-  answer: any; // TODO: chatgpt response type
+  answer: ChatGPTAnswerInterface;
   audioPlayer?: HTMLAudioElement | null;
   visemes?: VisemesType;
 }

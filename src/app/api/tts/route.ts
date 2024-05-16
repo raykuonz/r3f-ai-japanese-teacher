@@ -20,18 +20,14 @@ export const GET = async(req: NextRequest) => {
     visemes.push([event.audioOffset / 10000, event.visemeId]);
   }
 
-  const audioStream = await new Promise((resolve, reject) => {
+  const audioDataPromise = new Promise((resolve, reject) => {
     speechSynthesizer.speakTextAsync(
       req.nextUrl.searchParams.get('text')
       || `I'm excited to try text to speech`,
       (result) => {
         const { audioData } = result;
         speechSynthesizer.close();
-
-        // Convert arraybuffer to stream
-        const bufferStream = new PassThrough();
-        bufferStream.end(Buffer.from(audioData));
-        resolve(bufferStream);
+        resolve(audioData);
       },
       (error) => {
         console.error('speechSynthesizer.speakTextAsync error', error);
@@ -42,7 +38,11 @@ export const GET = async(req: NextRequest) => {
     );
   });
 
-  const response = new Response(audioStream, {
+  const audioData = await audioDataPromise as ArrayBuffer;
+  const audioBuffer = Buffer.from(audioData);
+  const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
+
+  const response = new Response(audioBlob, {
     headers: {
       'Content-Type': 'audio/mpeg',
       'Content-Disposition': 'inline; filename=tts.mp3',
