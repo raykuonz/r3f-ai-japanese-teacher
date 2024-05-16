@@ -122,18 +122,6 @@ const Teacher = ({
         }
       }
     }
-
-    if (
-      actions[animation] &&
-      (
-        actions[animation]!.time >
-        actions[animation]!.getClip().duration - ANIMATION_FADE_TIME
-      )
-    ) {
-      setAnimation((animation) =>
-        animation === 'Talking' ? 'Talking2' : 'Talking'
-      );
-    }
   })
 
   useEffect(() => {

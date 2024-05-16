@@ -38,7 +38,7 @@ const MessagesList = () => {
   );
 
   const renderJapanese = (japanese: ChatGPTAnswerJapaneseInterface[]) => (
-    <p className="text-white font-bold text-4xl mt-2 font-jp flex flex-wrap gap-1">
+    <span className="text-white font-bold text-4xl mt-2 font-jp flex flex-wrap gap-1">
       {japanese.map((word, i) => (
         <span key={i} className="flex flex-col justify-end items-center">
           {furigana && word.reading && (
@@ -47,7 +47,7 @@ const MessagesList = () => {
           {word.word}
         </span>
       ))}
-    </p>
+    </span>
   );
 
   return (
